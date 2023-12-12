@@ -9,15 +9,15 @@ public class TrieNode {
     private boolean isTerminal;
 
     public boolean isEmpty() {
-        return false;
+        return children.isEmpty();
     }
 
     public TrieNode removeChild(Character c) {
-        return null;
+        return children.remove(c);
     }
 
     public boolean isTerminal() {
-        return false;
+        return isTerminal;
     }
 
     public void setTerminal(boolean isTerminal) {
@@ -25,10 +25,19 @@ public class TrieNode {
     }
 
     public TrieNode getNext(Character c) {
-        return null;
+        return children.computeIfAbsent(c, _ -> new TrieNode());
     }
 
     public TrieNode getChild(Character c) {
-        return null;
+        return children.get(c);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (!isEmpty())
+            sb.append(children).append(", ");
+
+        return sb.append(isTerminal).toString();
     }
 }
