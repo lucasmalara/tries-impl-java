@@ -40,14 +40,14 @@ class TrieTest {
     }
 
     @Test
-    void givenEmptyNode_WhenIsEmpty_ThenIsTrue() {
+    void givenEmptyNode_WhenIsLeaf_ThenIsTrue() {
         Trie trie = Trie.empty();
         assertTrue(trie.isEmpty());
         assertTrue(trie.root.isLeaf());
     }
 
     @Test
-    void givenChild_WhenIsEmpty_ThenEqualsExpected() {
+    void givenChild_WhenIsLeaf_ThenEqualsExpected() {
         Trie trie = Trie.empty();
         trie.insert("a");
         assertTrue(trie.root.getChild('a').isLeaf());
@@ -103,7 +103,7 @@ class TrieTest {
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
-    void givenCharactersInsertInTrie_WhenNodeNext_ThenReturnSameNode(char c) {
+    void givenCharactersInsertInTrie_WhenNearestChild_ThenReturnSameNode(char c) {
         Trie trie = Trie.empty();
         trie.insert(String.valueOf(c));
         TrieNode expected = trie.root.getChild(c);
@@ -112,7 +112,7 @@ class TrieTest {
     }
 
     @Test
-    void givenChild_WhenNodeNext_ThenReturnSameNode() {
+    void givenChild_WhenNearestChild_ThenReturnSameNode() {
         Trie trie = Trie.empty();
         trie.insert("a");
         TrieNode expected = trie.root.getChild('a');
