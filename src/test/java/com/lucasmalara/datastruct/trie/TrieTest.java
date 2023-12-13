@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -137,15 +136,6 @@ class TrieTest {
         trie.insert(value);
         Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
         assertTrue(nodeOptional.isEmpty());
-    }
-
-    @ParameterizedTest
-    @EmptySource
-    void givenEmptySourceInsertInTrie_WhenPerformDFS_ThenNodeFound(String value) {
-        Trie trie = Trie.empty();
-        trie.insert(value);
-        Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
-        assertTrue(nodeOptional.isPresent());
     }
 
     @Nested
