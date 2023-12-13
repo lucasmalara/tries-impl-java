@@ -43,19 +43,19 @@ class TrieTest {
     void givenEmptyNode_WhenIsEmpty_ThenIsTrue() {
         Trie trie = Trie.empty();
         assertTrue(trie.isEmpty());
-        assertTrue(trie.root.isEmpty());
+        assertTrue(trie.root.isLeaf());
     }
 
     @Test
     void givenChild_WhenIsEmpty_ThenEqualsExpected() {
         Trie trie = Trie.empty();
         trie.insert("a");
-        assertTrue(trie.root.getChild('a').isEmpty());
+        assertTrue(trie.root.getChild('a').isLeaf());
         trie.insert("ab");
-        assertFalse(trie.root.getChild('a').isEmpty());
-        assertTrue(trie.root.getChild('a').getChild('b').isEmpty());
+        assertFalse(trie.root.getChild('a').isLeaf());
+        assertTrue(trie.root.getChild('a').getChild('b').isLeaf());
         trie.insert("ac");
-        assertTrue(trie.root.getChild('a').getChild('c').isEmpty());
+        assertTrue(trie.root.getChild('a').getChild('c').isLeaf());
     }
 
     @Test
@@ -230,7 +230,7 @@ class TrieTest {
                     .get('b')
                     .getChild('a')
                     .getChild('t');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: bar
             temp = start
@@ -245,7 +245,7 @@ class TrieTest {
                     .getChild('a')
                     .getChild('r')
                     .getChild('n');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: barm
             temp = start
@@ -253,7 +253,7 @@ class TrieTest {
                     .getChild('a')
                     .getChild('r')
                     .getChild('m');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: c...
             temp = start
@@ -271,7 +271,7 @@ class TrieTest {
                     .get('c')
                     .getChild('a')
                     .getChild('t');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: car...
             temp = start
@@ -286,7 +286,7 @@ class TrieTest {
                     .getChild('a')
                     .getChild('r')
                     .getChild('p');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             //CASE: cu..
             temp = start
@@ -299,7 +299,7 @@ class TrieTest {
                     .get('c')
                     .getChild('u')
                     .getChild('t');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             //CASE: ce...
             temp = start
@@ -320,7 +320,7 @@ class TrieTest {
                     .getChild('e')
                     .getChild('l')
                     .getChild('l');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: co...
             temp = start
@@ -341,7 +341,7 @@ class TrieTest {
                     .getChild('o')
                     .getChild('l')
                     .getChild('a');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: d...
             temp = start
@@ -359,13 +359,13 @@ class TrieTest {
                     .get('d')
                     .getChild('o')
                     .getChild('g');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
 
             // CASE: r...
             // CASE: r
             temp = start
                     .get('r');
-            assertTrue(temp.isEmpty());
+            assertTrue(temp.isLeaf());
         }
 
         @Test

@@ -36,17 +36,17 @@ public class Trie {
 
     /**
      * <p>
-     *    This method insert a given {@code String} to this trie.
-     *    he given {@code String} is inserted in such a way,
-     *    that its each character is associated to a node.
+     * This method insert a given {@code String} to this trie.
+     * he given {@code String} is inserted in such a way,
+     * that its each character is associated to a node.
      * </p>
      * <p>
-     *      If an {@code N} node does not contain a child node {@code C} associated with ith character,
-     *      then a {@code new} child node of an {@code N} node is created that is associated with that character,
-     *      and we move into that node;
-     *      <br>
-     *      Otherwise we move to node {@code C} that becomes a node {@code N},
-     *      and we check the same condition for that node.
+     * If an {@code N} node does not contain a child node {@code C} associated with ith character,
+     * then a {@code new} child node of an {@code N} node is created that is associated with that character,
+     * and we move into that node;
+     * <br>
+     * Otherwise we move to node {@code C} that becomes a node {@code N},
+     * and we check the same condition for that node.
      * </p>
      *
      * @param word a {@code String} to insert in this trie.
@@ -67,7 +67,7 @@ public class Trie {
      * @return {@code true} if {@link #root} does not have a child, {@code false} otherwise.
      */
     public boolean isEmpty() {
-        return root.isEmpty();
+        return root.isLeaf();
     }
 
     /**
@@ -102,10 +102,9 @@ public class Trie {
      * Iteration starts from a given node by ith character of a given {@code String}.
      *
      * @param current a trie node to traverse from.
-     * @param word a {@code String} to iterate through.
+     * @param word    a {@code String} to iterate through.
      * @return {@code Optional} of node if a given {@code String} can be iterated from a given node,
      * empty {@code Optional} otherwise.
-     *
      * @see #depthFirstSearch(String)
      */
     private Optional<TrieNode> depthFirstSearch(TrieNode current, String word) {
@@ -124,6 +123,7 @@ public class Trie {
 
     /**
      * @return {@code String} representation of this trie.
+     *
      */
     @Override
     public String toString() {

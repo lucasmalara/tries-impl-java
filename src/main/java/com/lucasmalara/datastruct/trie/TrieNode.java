@@ -22,11 +22,11 @@ public class TrieNode {
     private boolean isTerminal;
 
     /**
-     * This method checks if this node is empty.
+     * This method checks if this node is a leaf.
      *
      * @return {@code true} if {@link #children} is empty, {@code false} otherwise.
      */
-    public boolean isEmpty() {
+    public boolean isLeaf() {
         return children.isEmpty();
     }
 
@@ -83,7 +83,7 @@ public class TrieNode {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (!isEmpty())
+        if (!isLeaf())
             sb.append(children).append(", ");
 
         return sb.append(isTerminal).toString();
