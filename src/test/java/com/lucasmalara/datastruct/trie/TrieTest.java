@@ -20,14 +20,14 @@ class TrieTest {
 
     @Test
     void givenEmptyTrie_WhenTrieIsEmpty_ThenTrieIsEmptyIsTrue() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertTrue(trie.isEmpty());
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     void givenNullAndEmptySource_whenInsertInTrie_ThenTrieIsEmptyIsTrue(String value) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert(value);
         assertTrue(trie.isEmpty());
     }
@@ -35,20 +35,20 @@ class TrieTest {
     @ParameterizedTest
     @NullAndEmptySource
     void givenNullAndEmptySource_whenInsertInTrie_ThenTrieSearchFalse(String value) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertFalse(trie.search(value));
     }
 
     @Test
     void givenEmptyNode_WhenIsEmpty_ThenIsTrue() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertTrue(trie.isEmpty());
         assertTrue(trie.root.isEmpty());
     }
 
     @Test
     void givenChild_WhenIsEmpty_ThenEqualsExpected() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert("a");
         assertTrue(trie.root.getChild('a').isEmpty());
         trie.insert("ab");
@@ -60,7 +60,7 @@ class TrieTest {
 
     @Test
     void givenChild_WhenIsTerminal_ThenEqualsExpected() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertFalse(trie.root.isTerminal());
         trie.insert("ab");
         assertFalse(trie.root.getChild('a').isTerminal());
@@ -73,21 +73,21 @@ class TrieTest {
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
     void givenCharacters_WhenGetChild_ThenIsNull(char c) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertNull(trie.root.getChild(c));
     }
 
     @ParameterizedTest
     @NullSource
     void givenNullSource_WhenGetChild_ThenIsNull(Character c) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         assertNull(trie.root.getChild(c));
     }
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
     void givenCharactersInsertInTrie_WhenGetChild_ThenIsNotNull(char c) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert(String.valueOf(c));
         assertNotNull(trie.root.getChild(c));
     }
@@ -95,34 +95,34 @@ class TrieTest {
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
     void givenCharacters_WhenNodeNext_ThenReturnNewNode(char c) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         TrieNode expected = trie.root.getChild(c);
-        TrieNode next = trie.root.getNext(c);
+        TrieNode next = trie.root.nearestChild(c);
         assertNotEquals(expected, next);
     }
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
     void givenCharactersInsertInTrie_WhenNodeNext_ThenReturnSameNode(char c) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert(String.valueOf(c));
         TrieNode expected = trie.root.getChild(c);
-        TrieNode next = trie.root.getNext(c);
+        TrieNode next = trie.root.nearestChild(c);
         assertEquals(expected, next);
     }
 
     @Test
     void givenChild_WhenNodeNext_ThenReturnSameNode() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert("a");
         TrieNode expected = trie.root.getChild('a');
-        TrieNode next = trie.root.getNext('a');
+        TrieNode next = trie.root.nearestChild('a');
         assertEquals(expected, next);
     }
 
     @Test
     void givenChild_WhenSetTerminalFalse_ThenIsTerminalIsFalse() {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert("a");
         TrieNode child = trie.root.getChild('a');
         assertTrue(child.isTerminal());
@@ -133,7 +133,7 @@ class TrieTest {
     @ParameterizedTest
     @NullSource
     void givenNullSourceInsertInTrie_WhenPerformDFS_ThenNodeNotFound(String value) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert(value);
         Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
         assertTrue(nodeOptional.isEmpty());
@@ -142,7 +142,7 @@ class TrieTest {
     @ParameterizedTest
     @EmptySource
     void givenEmptySourceInsertInTrie_WhenPerformDFS_ThenNodeFound(String value) {
-        Trie trie = Trie.getInstance();
+        Trie trie = Trie.empty();
         trie.insert(value);
         Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
         assertTrue(nodeOptional.isPresent());
@@ -188,7 +188,7 @@ class TrieTest {
 
         @Test
         void givenStrings_WhenInsertInTrie_ThenDFSFoundNode() {
-            Trie trie = Trie.getInstance();
+            Trie trie = Trie.empty();
             examples.forEach(s -> {
                 trie.insert(s);
                 Optional<TrieNode> nodeOptional = trie.depthFirstSearch(s);
@@ -198,7 +198,7 @@ class TrieTest {
 
         @Test
         void givenStrings_WhenInsertInTrie_ThenSearchIsTrue() {
-            Trie trie = Trie.getInstance();
+            Trie trie = Trie.empty();
             examples.forEach(s -> {
                 trie.insert(s);
                 assertTrue(trie.search(s));
@@ -207,7 +207,7 @@ class TrieTest {
 
         @Test
         void givenTrieNodes_WhenGetChildren_ThenContainsExactlyExpected() {
-            Trie trie = Trie.getInstance();
+            Trie trie = Trie.empty();
             examples.forEach(trie::insert);
             Map<Character, TrieNode> start = trie.root.children;
             assertChildrenContains(start, 'b', 'c', 'd', 'r');
@@ -370,7 +370,7 @@ class TrieTest {
 
         @Test
         void givenTrieNodes_WhenGetChild_ThenIsTerminalEqualExpected() {
-            Trie trie = Trie.getInstance();
+            Trie trie = Trie.empty();
             examples.forEach(trie::insert);
             Map<Character, TrieNode> start = trie.root.children;
             TrieNode temp;
