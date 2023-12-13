@@ -17,7 +17,13 @@ public class Trie {
     /**
      * The root node to iterate through a whole trie.
      */
-    public final TrieNode root = new TrieNode();
+    public final TrieNode root = new TrieNode() {
+        @Override
+        public void setTerminal(boolean isTerminal) {
+            // This overridden method ensures
+            // that root is always not terminal - that is defined by a definition.
+        }
+    };
 
     /**
      * This constructor restricts instantiation of a trie.
