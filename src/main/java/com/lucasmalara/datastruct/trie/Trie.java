@@ -16,6 +16,8 @@ public class Trie {
 
     /**
      * The root node to iterate through a whole trie.
+     *
+     * @implNote Root node should never be marked as a terminal.
      */
     public final TrieNode root = new TrieNode() {
         @Override
@@ -34,7 +36,7 @@ public class Trie {
     }
 
     /**
-     * @return instance of an empty trie.
+     * @return an empty trie.
      */
     public static Trie empty() {
         return new Trie();
@@ -78,7 +80,7 @@ public class Trie {
 
     /**
      * This method search through this trie to find if a given {@code String} is in this trie
-     * and its last character is marked as a terminal.
+     * and a node associated with a last character of that {@code String} is marked as a terminal.
      *
      * @param word a {@code String} to search for in this trie.
      * @return {@code true} if this trie contains a given {@code String}
@@ -133,7 +135,6 @@ public class Trie {
 
     /**
      * @return {@code String} representation of this trie.
-     *
      */
     @Override
     public String toString() {
