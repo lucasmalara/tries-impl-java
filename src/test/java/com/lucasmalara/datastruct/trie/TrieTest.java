@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrieTest {
 
     @Test
-    void givenEmptyTrie_WhenTrieIsEmpty_ThenTrieIsEmptyIsTrue() {
+    void givenEmptyTrie_WhenIsEmpty_ThenIsEmptyIsTrue() {
         Trie trie = Trie.empty();
         assertTrue(trie.isEmpty());
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    void givenNullAndEmptySource_whenInsertInTrie_ThenTrieIsEmptyIsTrue(String value) {
+    void givenNullAndEmptySource_whenInsert_ThenIsEmptyIsTrue(String value) {
         Trie trie = Trie.empty();
         trie.insert(value);
         assertTrue(trie.isEmpty());
@@ -33,7 +33,7 @@ class TrieTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    void givenNullAndEmptySource_whenInsertInTrie_ThenTrieSearchFalse(String value) {
+    void givenNullAndEmptySource_whenInsert_ThenSearchIsFalse(String value) {
         Trie trie = Trie.empty();
         assertFalse(trie.search(value));
     }
@@ -78,14 +78,14 @@ class TrieTest {
 
     @ParameterizedTest
     @NullSource
-    void givenNullSource_WhenGetChild_ThenIsNull(Character c) {
+    void givenNullSource_WhenGetChild_ThenIsNull(char c) {
         Trie trie = Trie.empty();
         assertNull(trie.root.getChild(c));
     }
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
-    void givenCharactersInsertInTrie_WhenGetChild_ThenIsNotNull(char c) {
+    void givenInsertedCharacters_WhenGetChild_ThenIsNotNull(char c) {
         Trie trie = Trie.empty();
         trie.insert(String.valueOf(c));
         assertNotNull(trie.root.getChild(c));
@@ -93,7 +93,7 @@ class TrieTest {
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
-    void givenCharacters_WhenNodeNext_ThenReturnNewNode(char c) {
+    void givenCharacters_WhenNearestChild_ThenReturnNewNode(char c) {
         Trie trie = Trie.empty();
         TrieNode expected = trie.root.getChild(c);
         TrieNode next = trie.root.nearestChild(c);
@@ -102,7 +102,7 @@ class TrieTest {
 
     @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
-    void givenCharactersInsertInTrie_WhenNearestChild_ThenReturnSameNode(char c) {
+    void givenInsertedCharacters_WhenNearestChild_ThenReturnSameNode(char c) {
         Trie trie = Trie.empty();
         trie.insert(String.valueOf(c));
         TrieNode expected = trie.root.getChild(c);
@@ -131,7 +131,7 @@ class TrieTest {
 
     @ParameterizedTest
     @NullSource
-    void givenNullSourceInsertInTrie_WhenPerformDFS_ThenNodeNotFound(String value) {
+    void givenInsertedNullSource_WhenPerformDFS_ThenNodeNotFound(String value) {
         Trie trie = Trie.empty();
         trie.insert(value);
         Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
@@ -177,7 +177,7 @@ class TrieTest {
         }
 
         @Test
-        void givenStrings_WhenInsertInTrie_ThenDFSFoundNode() {
+        void givenWordsExamples_WhenInsert_ThenDFSFoundNode() {
             Trie trie = Trie.empty();
             examples.forEach(s -> {
                 trie.insert(s);
@@ -187,7 +187,7 @@ class TrieTest {
         }
 
         @Test
-        void givenStrings_WhenInsertInTrie_ThenSearchIsTrue() {
+        void givenWordsExamples_WhenInsert_ThenSearchIsTrue() {
             Trie trie = Trie.empty();
             examples.forEach(s -> {
                 trie.insert(s);
