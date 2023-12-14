@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -129,6 +130,21 @@ class TrieTest {
         trie.insert(value);
         Optional<TrieNode> nodeOptional = trie.depthFirstSearch(value);
         assertTrue(nodeOptional.isEmpty());
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void givenNullSource_WhenEraseFromEmptyTrie_ThenEraseIsFalse(String value) {
+        Trie trie = Trie.empty();
+        assertFalse(trie.erase(value));
+    }
+
+    @ParameterizedTest
+    @NullSource
+    void givenInsertedNullSource_WhenErase_ThenEraseIsFalse(String value) {
+        Trie trie = Trie.empty();
+        trie.insert(value);
+        assertFalse(trie.erase(value));
     }
 
     @Nested
@@ -511,5 +527,81 @@ class TrieTest {
                     .get('r');
             assertTrue(temp.isTerminal());
         }
+
+        @ParameterizedTest
+        @MethodSource("examplesRandomOrder")
+        void givenWordsExamplesNotInTrie_WhenErase_ThenEraseIsFalse(String value) {
+            Trie trie = Trie.empty();
+            trie.insert("lorem");
+            trie.insert("ipsum");
+            trie.insert("dolor");
+            trie.insert("sit");
+            trie.insert("amet");
+            assertFalse(trie.erase(value));
+        }
+
+        @ParameterizedTest
+        @MethodSource("examplesRandomOrder")
+        void givenInsertedWordsExamples_WhenErase_ThenSearchIsFalse(String value) {
+            Trie trie = Trie.empty();
+            trie.insert(value);
+            assertTrue(trie.erase(value));
+            assertFalse(trie.search(value));
+        }
+    }
+
+    @Test
+    void givenInsertedWords_WhenErase_ThenEraseIsTrue() {
+        Trie trie = Trie.empty();
+        trie.insert("car");
+        trie.insert("carp");
+        trie.insert("carpet");
+        assertTrue(trie.erase("carp"));
+        assertTrue(trie.erase("carpet"));
+        assertTrue(trie.erase("car"));
+    }
+
+    @Test
+    void givenInsertedWordDependentOnOthers_WhenErase_ThenSearchIsFalse() {
+        Trie trie = Trie.empty();
+        trie.insert("car");
+        trie.insert("carpet");
+        trie.erase("car");
+        assertFalse(trie.search("car"));
+    }
+
+    @Test
+    void givenInsertedWordDependentOnOthers_WhenErase_ThenDFSFoundNode() {
+        Trie trie = Trie.empty();
+        trie.insert("but");
+        trie.insert("button");
+        trie.erase("but");
+        assertTrue(trie.depthFirstSearch("but").isPresent());
+    }
+
+    @Test
+    void givenInsertedWordDependentOnOthers_WhenErase_ThenIsTerminalIsFalse() {
+        Trie trie = Trie.empty();
+        trie.insert("later");
+        trie.insert("lateral");
+        trie.erase("later");
+        TrieNode current = trie.root;
+        for (char c : "later".toCharArray()) {
+            current = current.getChild(c);
+        }
+        assertFalse(current.isTerminal());
+    }
+
+    @Test
+    void givenInsertedWordDependentOnOthers_WhenErase_ThenIsLeafIsFalse() {
+        Trie trie = Trie.empty();
+        trie.insert("home");
+        trie.insert("homespun");
+        trie.erase("home");
+        TrieNode current = trie.root;
+        for (char c : "home".toCharArray()) {
+            current = current.getChild(c);
+        }
+        assertFalse(current.isLeaf());
     }
 }

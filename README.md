@@ -28,12 +28,13 @@ Operations and structures were implemented following OOP paradigm.
 
 - [x] `insert(trie, string)`
 - [x] `search(trie, string)`
-- [ ] `remove(trie, string)`
+- [ ] `delete(trie, string)`
 
 ### Implementation
 
 - [x] Insertion: `trie.insert(word: String): void`
 - [x] Searching: `trie.search(word: String): boolean`
+- [ ] Deletion: `trie.erase(word: String): boolean`
 
 ## Applications
 

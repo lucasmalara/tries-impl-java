@@ -127,6 +127,10 @@ public class Trie {
         return Optional.of(current);
     }
 
+    public boolean erase(String word) {
+        return false;
+    }
+
     /**
      * @return {@code String} representation of this trie.
      *
