@@ -77,13 +77,6 @@ class TrieTest {
     }
 
     @ParameterizedTest
-    @NullSource
-    void givenNullSource_WhenGetChild_ThenIsNull(char c) {
-        Trie trie = Trie.empty();
-        assertNull(trie.root.getChild(c));
-    }
-
-    @ParameterizedTest
     @ValueSource(chars = {'a', '1', '?', '\\', '\n', ' '})
     void givenInsertedCharacters_WhenGetChild_ThenIsNotNull(char c) {
         Trie trie = Trie.empty();
