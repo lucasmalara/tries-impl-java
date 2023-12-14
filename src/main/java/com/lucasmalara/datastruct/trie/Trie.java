@@ -129,7 +129,105 @@ public class Trie {
         return Optional.of(current);
     }
 
+    /**
+     * <p>
+     * This method erases a given word stored in this trie by iterate through that word with nodes.
+     * Iteration starts from the {@link #root} and a first character of that word.
+     * </p>
+     * <br>
+     * <p>
+     * If a given {@code String} cannot be iterated, then this trie does not contain it.
+     * </p>
+     * <br>
+     * <p>
+     * A word is literally erased iff it can be iterated to its last character
+     * that must be associated with a leaf and marked as terminal.
+     * </p>
+     * <br>
+     * <p>
+     * If a node is not a leaf, then a given {@code String} is `just` erased,
+     * that means is no longer considered a word in this trie,
+     * which means that, that node is no longer marked as terminal.
+     * <br>
+     * However, none of the nodes are being removed.
+     * </p>
+     *
+     * @param word a word to erase from this trie.
+     * @return {@code true} if word was erased, {@code false} otherwise.
+     */
     public boolean erase(String word) {
+        Optional<TrieNode> nodeOptional = depthFirstSearch(word);
+        boolean nodeFound = nodeOptional.isPresent();
+        if (nodeFound)
+            removeNodes(root, word, 0);
+
+        return nodeFound;
+    }
+
+    /**
+     * <p>
+     * This method removes nodes based on a given word.
+     * Iteration starts from the given: node and an ith character of a given word,
+     * <br>
+     * where {@code i := characterIndex}.
+     * </p>
+     * <br>
+     * <p>
+     * If a given word cannot be iterated from a given node by an ith character of that word,
+     * then the subtrie does not contain that word.
+     * </p>
+     * <br>
+     * <p>
+     * If an iterated last character of that word is associated with a leaf marked as terminal,
+     * then that node is removed,
+     * and each previously iterated node is removed
+     * until the first node marked as a terminal
+     * that is the nearest to a node associated with that last character;
+     * </p>
+     * <br>
+     * <p>
+     * Otherwise a node associated with that last character is marked as not terminal
+     * and none of the nodes are being removed.
+     * </p>
+     *
+     * @param fromNode       a node to start iteration from.
+     * @param word           a word to erase from this trie.
+     * @param characterIndex an index of an ith character of a given {@code String}.
+     * @return {@code true} if a node
+     * associated with an ith character of the {@code String}
+     * was removed from the subtrie,
+     * {@code false} otherwise.
+     */
+    private boolean removeNodes(TrieNode fromNode, String word, int characterIndex) {
+        if (word == null)
+            return false;
+
+        if (word.length() == characterIndex) {
+            if (!fromNode.isTerminal())
+                return false;
+
+            // setTerminal(false) if isTerminal(): true
+            fromNode.setTerminal(false);
+            return fromNode.isLeaf();
+        }
+
+        if (word.length() > characterIndex) {
+            char c = word.charAt(characterIndex);
+            TrieNode byChar = fromNode.getChild(c);
+            if (byChar == null)
+                return false;
+
+            // recursion
+            boolean removeNext =
+                    removeNodes(byChar, word, ++characterIndex) && !byChar.isTerminal();
+
+            if (removeNext) {
+                // remove a child associated with a given character
+                // fromNode.removeChild(c): byChar
+                fromNode.removeChild(c);
+                return true;
+            }
+        }
         return false;
     }
 

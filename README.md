@@ -26,15 +26,9 @@ Operations and structures were implemented following OOP paradigm.
 
 ### Operation
 
-- [x] `insert(trie, string)`
-- [x] `search(trie, string)`
-- [ ] `delete(trie, string)`
-
-### Implementation
-
 - [x] Insertion: `trie.insert(word: String): void`
 - [x] Searching: `trie.search(word: String): boolean`
-- [ ] Deletion: `trie.erase(word: String): boolean`
+- [x] Deletion: `trie.erase(word: String): boolean`
 
 ## Applications
 
@@ -58,7 +52,7 @@ If you would like to use this implementation,
 you should know that at the moment when it was written
 **(12.12.2023)** the code language level is set to `Java 21 Preview`.
 Hence, if you are going to compile the code containing this implementation,
-you must have JDK 21 or higher and add a flag `--enable-preview`, e.g.:
+you should have JDK 21 or possible any newer and add a flag `--enable-preview`, e.g.:
 
 - Javac (Compile to bytecode)
 
