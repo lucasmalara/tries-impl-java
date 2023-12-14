@@ -36,7 +36,7 @@ public class TrieNode {
      * @param c a character associated with a node to remove.
      * @return removed child if exists, {@code null} otherwise.
      */
-    public TrieNode removeChild(Character c) {
+    public TrieNode removeChild(char c) {
         return children.remove(c);
     }
 
@@ -63,7 +63,7 @@ public class TrieNode {
      * @param c a character associated with a possible node.
      * @return a child associated with a given character if exists, new child associated by that character otherwise.
      */
-    public TrieNode nearestChild(Character c) {
+    public TrieNode nearestChild(char c) {
         return children.computeIfAbsent(c, _ -> new TrieNode());
     }
 
@@ -73,7 +73,7 @@ public class TrieNode {
      * @param c a character associated with a node to retrieve.
      * @return a child associated with a given character if exists, null otherwise.
      */
-    public TrieNode getChild(Character c) {
+    public TrieNode getChild(char c) {
         return children.get(c);
     }
 
