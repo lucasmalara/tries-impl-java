@@ -15,6 +15,20 @@ Every children of the node have a common string <b>prefix</b> associated with th
 The root node is associated with an <b>empty string</b>.
 </div>
 
+## Table Of Content
+
+- [Common Operations](#common-operations)
+  - [Legend](#legend)
+  - [Operation](#operation)
+- [Applications](#applications)
+- [Project Details](#project-details)
+- [How To Use](#how-to-use)
+  - [Local dependency](#local-dependency)
+  - [Source code](#source-code)
+  - [Compilation](#compilation)
+- [Author](#author)
+
+
 ## Common Operations
 
 Operations and structures were implemented following OOP paradigm.
@@ -48,22 +62,54 @@ and enable faster searching when the set contains <i>large</i> number of <i>shor
 
 ## How To Use
 
+### Local dependency
+
+1. Download a jar file attached to the release:
+   [v1.0](https://github.com/lucasmalara/tries-impl-java/releases/tag/v1.0 "v1.0").
+
+2. You can verify SHA of downloaded file (details are in the release description).
+
+3. Copy that jar file into a subdirectory of your project directory, 
+e.g.: `YourProject/libs/` and add as local dependency:
+
+- Gradle (Kotlin):
+
+Add into `dependencies` function in `build.gradle.kts`:
+
+```kotlin
+    implementation(files("./libs/Trie-1.0.jar"))
+```
+
+- Gradle (Groovy):
+
+Add into `dependencies` function in `build.gradle`:
+
+```groovy
+    implementation files('./libs/Trie-1.0.jar')
+```
+
+### Source code
+
+Copy files: `Trie.java` and `TrieNode.java` into a java package of your choice in your project.
+
+### Compilation
+
 If you would like to use this implementation, 
 you should know that at the moment when it was written
-**(12.12.2023)** the code language level is set to `Java 21 Preview`.
-Hence, if you are going to compile the code containing this implementation,
-you should have JDK 21 or possible any newer and add a flag `--enable-preview`, e.g.:
+**(12.12.2023)**, the code is written in `Java 21 Preview`.
+Hence, if you are going to compile and run the project containing this implementation,
+you should use JDK 21 or possible any newer and add a flag `--enable-preview`, e.g.:
 
 - Javac (Compile to bytecode)
 
 ```shell
-    javac --enable-preview Main.java
+    javac --enable-preview YourMainClass.java
 ```
 
 - Java (Run)
 
 ```shell
-    java --enable-preview Main
+    java --enable-preview YourMainClass
 ```
 
 - Gradle (Kotlin)
@@ -72,11 +118,13 @@ you should have JDK 21 or possible any newer and add a flag `--enable-preview`, 
 
 ```kotlin
     // ...
+    // NEEDED IF YOU HAVE TEST CLASSES
     tasks.test {
         // ...
         jvmArgs("--enable-preview")
     }
 
+    // REQUIRED
     tasks.withType<JavaCompile> {
         // ...
         options.compilerArgs.add("--enable-preview")
@@ -89,40 +137,26 @@ you should have JDK 21 or possible any newer and add a flag `--enable-preview`, 
 
 ```groovy
     // ...
+    // NEEDED IF YOU HAVE TEST CLASSES
     test {
         // ...
         jvmArgs(['--enable-preview'])
     }
 
+    // REQUIRED
     tasks.withType(JavaCompile).each {
         // ...
         it.options.compilerArgs.add('--enable-preview')
     }
 ```
 
-- Maven
+- Compile & Run with IntelliJ:
 
-`pom.xml`:
-
-```xml
-<!-- ... -->
-<build>
-    <plugins>
-        <!-- ... -->
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-                <source>21</source>
-                <target>21</target>
-                <compilerArgs>
-                    --enable-preview
-                </compilerArgs>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-```
+1. Open Run/Debug Configuration of your project.
+2. Expand list: Modify options.
+3. Add VM option -> shortcut: `ALT + V`.
+4. Paste `--enable-preview` into the VM options.
+5. Confirm by clicking OK.
 
 ## Author
 
